@@ -119,6 +119,62 @@ And then:
        SELECT count(distinct title) NoOfSongs FROM `t-osprey-337221.spotify_dataset.spotify4` WHERE artist_all LIKE '%Taylor Swift%';
        
  ![image](https://user-images.githubusercontent.com/98153604/151672725-01c2fac7-4896-4ea1-9d8d-c906277f7e4a.png)
+ 
+ 
+ (7). Counting number of times Taylor Swift appeared in the TOP 200 trend
+ 
+     SELECT Count(*) N_InTop200 
+     FROM `t-osprey-337221.spotify_dataset.spotify4` 
+     WHERE artist_all 
+     LIKE '%Taylor Swift%' 
+     AND chart = 'top200';
+     
+ ![image](https://user-images.githubusercontent.com/98153604/151672786-609c502a-ccef-4ef9-b474-efe14016fc73.png)
+ 
+ (8). Listing Taylor's TOP 10 songs
+ 
+      SELECT title, SUM(streams) streams 
+      FROM `t-osprey-337221.spotify_dataset.spotify4` 
+      WHERE artist_all LIKE '%Taylor Swift%' 
+      AND streams IS NOT NULL 
+      GROUP BY title 
+      ORDER BY streams DESC 
+      LIMIT 10;
+      
+ ![image](https://user-images.githubusercontent.com/98153604/151672837-c9d9a4a6-434a-435b-a768-c4a3f0251e48.png)
+ 
+ (9). Seeing how many times each song has appeared in top 200
+ 
+       SELECT title, count(title) AS count 
+       FROM `t-osprey-337221.spotify_dataset.spotify4` 
+       WHERE artist_all LIKE '%Taylor Swift%' 
+       AND chart = 'top200' 
+       GROUP BY title 
+       ORDER BY count DESC;
+       
+ ![image](https://user-images.githubusercontent.com/98153604/151672921-9d8954a5-f198-4476-9abc-e8d0a4acf254.png)
+     
+  (10). Highest, Lowest and the mean rank of the songs
+  
+         SELECT Title, MIN(rank) Highest, MAX(rank) Lowest, AVG(rank) Avg 
+         FROM `t-osprey-337221.spotify_dataset.spotify4`
+         WHERE artist_all like '%Taylor Swift%' 
+         AND chart='top200' 
+         GROUP BY title 
+         ORDER BY Avg;
+         
+ ![image](https://user-images.githubusercontent.com/98153604/151672951-62b7a76b-263b-482e-b68c-edc03bd97595.png)
+
+
+  
+  
+  
+  
+
+
+
+
+
 
        
  
