@@ -69,30 +69,66 @@ We also flatten the artist field and create table spotify4
 
 ## 4. Data analyze in Bigquery by SQL
     
-    (1). List of unique artists on “Top 200”
+(1). List of unique artists on “Top 200”
             
-            with templetable as (select title, date, artist_all FROM `t-osprey-337221.spotify_dataset.spotify3` as p, 
-            unnest(p.artist) as artist_all where chart='top200')
+     with templetable as (select title, date, artist_all FROM `t-osprey-337221.spotify_dataset.spotify3` as p, 
+     unnest(p.artist) as artist_all where chart='top200')
 
-            select count(distinct artist_all) from templetable
+     select count(distinct artist_all) from templetable
             
-    ![image](https://user-images.githubusercontent.com/98153604/151672306-ab05bd97-421f-43ac-a6a1-a9f89668f547.png)
+ ![image](https://user-images.githubusercontent.com/98153604/151672306-ab05bd97-421f-43ac-a6a1-a9f89668f547.png)
     
     
-    (2). Artist which appeared on the charts maximum number of times
+(2). Artist which appeared on the charts maximum number of times
     
-    We first flatten the artist field and create table spotify4
+We first flatten the artist field and create table spotify4
     
          Create table spotify_dataset.spotify4 as 
          (select p.* except(artist), artist_all FROM `t-osprey-337221.spotify_dataset.spotify3` as p, 
           unnest(p.artist) as artist_all)
           
-    And then:
+And then:
     
          SELECT artist_all, count(*) as num FROM `t-osprey-337221.spotify_dataset.spotify4` 
          group by artist_all order by num desc
          
-![image](https://user-images.githubusercontent.com/98153604/151672418-ece7bb18-bfeb-4ac0-a4d5-1c5560cc8e9b.png)
+ ![image](https://user-images.githubusercontent.com/98153604/151672418-ece7bb18-bfeb-4ac0-a4d5-1c5560cc8e9b.png)
+ 
+ (3). Finding artists with highest number of streams
+ 
+      SELECT artist_all, sum(streams) as total_streams FROM `t-osprey-337221.spotify_dataset.spotify4` 
+      group by artist_all order by total_streams desc
+      
+ ![image](https://user-images.githubusercontent.com/98153604/151672573-3e00d1a2-8611-44b8-813b-3bc0a435eff9.png)
+ 
+ (4). Artist with maximum number of songs to feature on chart
+ 
+      SELECT artist_all, count(distinct title) as totol_songs FROM `t-osprey-337221.spotify_dataset.spotify4` 
+      group by artist_all order by totol_songs desc
+ 
+ ![image](https://user-images.githubusercontent.com/98153604/151672623-80b702b8-8c66-4d75-8262-79d63a0b96dd.png)
+ 
+ (5). Get the range of timeline of the data
+ 
+       SELECT MIN(date) as begin, MAX(date) as time_end FROM `t-osprey-337221.spotify_dataset.spotify4` WHERE chart = 'top200';
+ 
+ ![image](https://user-images.githubusercontent.com/98153604/151672667-189046c2-edec-4c44-9662-0ffe16d719b1.png)
+ 
+ (6). Total Number of songs by Taylor Swift has appeared in top 200
+ 
+       SELECT count(distinct title) NoOfSongs FROM `t-osprey-337221.spotify_dataset.spotify4` WHERE artist_all LIKE '%Taylor Swift%';
+       
+ ![image](https://user-images.githubusercontent.com/98153604/151672725-01c2fac7-4896-4ea1-9d8d-c906277f7e4a.png)
+
+       
+ 
+
+
+
+
+
+ 
+ 
 
 
 
