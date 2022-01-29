@@ -1,4 +1,4 @@
-# Bigquery-data-analyze-using-SQL
+# ELT-pipeline-Bigquery-data-analyze-using-SQL
 
 In this project I analyze data from Spotify, datasets is a big csv file, download from kaggle API: "datasets download -d dhruvildave/spotify-charts" 
 
