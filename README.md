@@ -1,6 +1,6 @@
-# ELT-pipeline-Bigquery-data-analyze-using-SQL
+# ELT-pipeline-BigQuery-data-analyze-using-SQL
 
-In this project I analyze data from Spotify, datasets is a big csv file, download from kaggle API: "datasets download -d dhruvildave/spotify-charts" 
+In this project I analyze data from Spotify, datasets is a big csv file a 3.4G csv file, download from kaggle API: "datasets download -d dhruvildave/spotify-charts", I analyze the data in Google Cloud BigQuery using SQL. I load data from Google Cloud Storage to BigQuery. BigQuery is a Data Warehouse on Google Cloud Platform, which is powerful to handle big data and do data analysis.
 
 https://www.kaggle.com/dhruvildave/spotify-charts
 
